@@ -3,222 +3,323 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Nosso Filme — Gabriel & Amor</title>
+<title>Para o Amor da Minha Vida — Homenagem</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Roboto', Arial, sans-serif;
-  background: #000;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
+:root{
+  --accent1: #8b2fc6;
+  --accent2: #e55aa0;
+  --glass: rgba(255,255,255,0.08);
+  --glass-strong: rgba(255,255,255,0.14);
+  --text: #fff;
+  --max-width: 980px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: 'Playfair Display', Georgia, "Times New Roman", serif;
+  color:var(--text);
+  background: linear-gradient(135deg, #2b0b3a 0%, #4a115f 40%, #b23e7a 100%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  position: relative;
 }
 
-/* Menu topo */
-header {
-  width: 100%;
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #111;
+/* Overlay inicial */
+#overlayPlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-}
-header h1 {
-  color: #e50914;
-  font-family: 'Playfair Display', serif;
-  margin: 0;
-}
-header nav a {
+  inset:0;
+  background: rgba(0,0,0,0.85);
   color: #fff;
-  margin-left: 20px;
-  text-decoration: none;
-  font-weight: bold;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction: column;
+  font-size:1.3rem;
+  z-index:9999;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity 0.4s ease;
 }
-header nav a:hover {
-  color: #e50914;
-}
+#overlayPlay.hidden { opacity:0; pointer-events:none; }
 
 /* Carrossel */
-.carousel {
-  margin-top: 80px;
-  width: 100%;
-  max-width: 900px;
-  height: 400px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-}
-.carousel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: none;
-}
-.carousel img.active {
-  display: block;
-  animation: fade 1.5s;
-}
-@keyframes fade {
-  from { opacity: 0.4; }
-  to { opacity: 1; }
+.slideshow-container{
+  width:100%;
+  max-width:1200px;
+  height:420px;
+  margin-top:32px;
+  border-radius:18px;
+  overflow:hidden;
+  position:relative;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
-/* Seção história */
-.section {
-  background: rgba(20,20,20,0.95);
-  border-radius: 12px;
-  padding: 30px;
-  max-width: 800px;
-  margin: 40px 20px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-  text-align: left;
+.slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  display:flex;
 }
-.section h2 {
-  font-size: 2rem;
-  color: #e50914;
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 15px;
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  user-select:none;
+  -webkit-user-drag:none;
+  transition: transform 1s ease;
 }
-.section p {
-  font-size: 1.15rem;
-  line-height: 1.7;
-  color: #f1f1f1;
-}
-.signature {
-  text-align: right;
-  margin-top: 20px;
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: #e50914;
-}
+.slide.show img{ transform: scale(1.02); }
+.slide.show{ opacity:1; z-index:1; }
 
-/* Contador */
-#contador {
-  font-size: 1.2rem;
-  margin-top: 20px;
-  font-weight: bold;
-  color: #ffcc00;
-  text-align: center;
+.slideshow-overlay{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  padding:18px 26px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.28) 60%, rgba(0,0,0,0.48) 100%);
 }
-
-/* Botões de música */
-.music-controls {
-  margin: 20px;
-}
-.music-controls button {
-  background: #e50914;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 8px;
+.title-small{
+  font-size:18px;
+  font-weight:600;
+  letter-spacing:0.6px;
   color: #fff;
-  font-weight: bold;
-  cursor: pointer;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
-.music-controls button:hover {
-  background: #b20710;
+
+/* Controle de áudio */
+.audio-control{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.btn-audio{
+  background: var(--glass-strong);
+  border: 1px solid rgba(255,255,255,0.08);
+  color:var(--text);
+  padding:8px 12px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:600;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transition: all 0.2s ease, box-shadow 0.5s ease-in-out;
+}
+.btn-audio:hover{
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
+.btn-audio:focus{ outline:2px solid rgba(255,255,255,0.12); }
+
+/* Carta */
+.container-text{
+  width:100%;
+  max-width:var(--max-width);
+  margin: 34px 20px;
+  opacity:0;
+  animation: fadeInText 2s forwards 1s;
+}
+@keyframes fadeInText { to { opacity:1; } }
+
+.carta{
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius:14px;
+  padding:28px 30px;
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.05), 0 10px 30px rgba(0,0,0,0.45);
+  border:1px solid rgba(255,255,255,0.06);
+  color:var(--text);
+  line-height:1.7;
+  font-size:1.18rem;
+}
+.carta h2{
+  margin:0 0 10px 0;
+  font-size:1.6rem;
+  letter-spacing:0.2px;
+}
+.carta p{
+  margin:12px 0;
+  text-align:justify;
+}
+.carta p.signature{
+  margin-top:18px;
+  text-align:right;
+  font-weight:700;
+}
+
+/* Footer */
+footer{
+  margin:28px 0 60px 0;
+  color: rgba(255,255,255,0.9);
+  font-size:0.98rem;
+}
+
+/* Contador de tempo */
+#timeTogether{
+  font-size:1.2rem;
+  text-align:center;
+  margin-top:20px;
+  color:#fff;
+}
+
+/* Hello Kitty flutuante */
+.hellokitty-container {
+  position: fixed;
+  inset:0;
+  pointer-events: none;
+  z-index:0;
+}
+.kitty {
+  position: absolute;
+  width:60px;
+  left: 50%;
+  top: -100px;
+  transform: translateX(-50%);
+  animation: float 12s linear infinite;
+  opacity:0.8;
+}
+@keyframes float {
+  0% { transform: translateX(-50%) translateY(-100px) rotate(0deg); }
+  50% { transform: translateX(-50%) translateY(50vh) rotate(10deg); }
+  100% { transform: translateX(-50%) translateY(-100px) rotate(0deg); }
+}
+
+/* Capitolo 1 */
+#capitolo {
+  position: fixed;
+  bottom: 14px;
+  right: 18px;
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+/* Responsivo */
+@media (max-width:720px){
+  .slideshow-container{ height:300px; border-radius:12px }
+  .carta{ padding:20px; font-size:1rem }
 }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Nosso Filme</h1>
-  <nav>
-    <a href="#nossa-historia">Nossa História</a>
-  </nav>
-</header>
+<!-- Overlay inicial -->
+<div id="overlayPlay">
+  <div>Clique para ouvir a música e ver a homenagem 🎵❤️</div>
+  <button id="startBtn" class="btn-audio" style="margin-top:20px">▶ Começar</button>
+</div>
+
+<!-- Hello Kitty -->
+<div class="hellokitty-container">
+  <img src="hellokitty.png" class="kitty">
+</div>
 
 <!-- Carrossel -->
-<div class="carousel">
-  <img src="foto1.jpg" class="active" alt="Foto 1">
-  <img src="foto2.jpg" alt="Foto 2">
-  <img src="foto3.jpg" alt="Foto 3">
-  <img src="foto4.jpg" alt="Foto 4">
+<div class="slideshow-container" aria-label="Galeria de fotos">
+  <div class="slide show"><img src="foto1.jpg" alt="Nós dois — foto 1"></div>
+  <div class="slide"><img src="foto2.jpg" alt="Nós dois — foto 2"></div>
+  <div class="slide"><img src="foto3.jpg" alt="Nós dois — foto 3"></div>
+  <div class="slide"><img src="foto4.jpg" alt="Nós dois — foto 4"></div>
+  <div class="slide"><img src="foto5.jpg" alt="Nós dois — foto 5"></div>
+  <div class="slide"><img src="foto6.jpg" alt="Nós dois — foto 6"></div>
+  <div class="slide"><img src="foto7.jpg" alt="Nós dois — foto 7"></div>
+  <div class="slide"><img src="foto8.jpg" alt="Nós dois — foto 8"></div>
+  <div class="slide"><img src="foto9.jpg" alt="Nós dois — foto 9"></div>
+  <div class="slide"><img src="foto10.jpg" alt="Nós dois — foto 10"></div>
+
+  <div class="slideshow-overlay" aria-hidden="false">
+    <div class="title-small">Para o Amor da Minha Vida</div>
+    <div class="audio-control">
+      <button id="btnPlay" class="btn-audio" aria-pressed="false" style="display:none">▶ Tocar música</button>
+      <button id="btnPause" class="btn-audio" style="display:none">⏸ Pausar</button>
+    </div>
+  </div>
 </div>
 
-<!-- Contador -->
-<div id="contador"></div>
+<!-- Contador de tempo juntos -->
+<div id="timeTogether"></div>
+
+<!-- Carta -->
+<div class="container-text">
+  <div class="carta" role="article" aria-label="Carta de homenagem">
+    <h2>Minha Homenagem</h2>
+    <p>
+      Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, mas estar ao seu lado tem melhorado meus dias a cada dia que passa, obrigado por está sendo essa pessoa maravilhosa para mim, esses últimos dias andei conversando de mais com Deus, ele tem iluminado de mais minhas ideias, realmente isso tudo tem sido você que tem me expirado e me aproximado dele, isso é oque te define para mim, sempre me trazendo motivações e forças, eu estou dando meu máximo para ser o melhor por ti, saiba que jamais te deixarei e estarei lutando ao seu lado, mas peço que você não me esconda nada❤️
+    </p>
+    <p>
+      Eu te amo minha Boneca❤️‍🔥 estamos no início de nossa jornada, mas já temos mais de um livro para contar.
+    </p>
+    <p class="signature">
+      — Com todo o meu amor, Gabriel
+    </p>
+  </div>
+</div>
+
+<footer aria-hidden="true">© Homenagem feita por Gabriel</footer>
+
+<!-- Capitolo -->
+<div id="capitolo">Capitolo 1</div>
 
 <!-- Música -->
-<div class="music-controls">
-  <audio id="bgAudio" src="musica.mp3" loop></audio>
-  <button id="btnPlay">▶ Tocar Música</button>
-  <button id="btnPause" style="display:none;">⏸ Pausar Música</button>
-</div>
-
-<!-- História -->
-<div id="nossa-historia" class="section">
-  <h2>Nossa História</h2>
-  <p>
-    Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, 
-    mas estar ao seu lado tem melhorado meus dias a cada dia que passa. Obrigado por ser essa pessoa maravilhosa 
-    para mim. Esses últimos dias andei conversando demais com Deus, e Ele tem iluminado minhas ideias. 
-    Você é quem me inspira e me aproxima d’Ele.  
-    <br><br>
-    Eu estou dando meu máximo para ser o melhor por ti. Saiba que jamais te deixarei e estarei lutando ao seu lado. 
-    Eu te amo, minha boneca ❤️‍🔥. Estamos no início de nossa jornada, mas já temos mais de um livro para contar.
-  </p>
-  <div class="signature">— Com todo o meu amor, Gabriel</div>
-</div>
+<audio id="bgAudio" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-// Carrossel automático
-let current = 0;
-const slides = document.querySelectorAll('.carousel img');
-setInterval(() => {
-  slides[current].classList.remove('active');
-  current = (current + 1) % slides.length;
-  slides[current].classList.add('active');
-}, 4000);
+// Carrossel simples
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  let idx = 0;
+  const show = (i) => slides.forEach((s, k) => s.classList.toggle('show', k === i));
+  setInterval(() => { idx = (idx + 1) % slides.length; show(idx); }, 3500);
+})();
 
 // Contador de tempo juntos
-const startDate = new Date("2025-04-02T14:02:00");
-function atualizarContador() {
+function updateTimeTogether() {
+  const startDate = new Date("2025-04-02T14:02:00");
   const now = new Date();
-  const diff = now - startDate;
+  let diff = now - startDate;
 
-  const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutos = Math.floor((diff / (1000 * 60)) % 60);
-  const segundos = Math.floor((diff / 1000) % 60);
+  const days = Math.floor(diff / (1000*60*60*24));
+  diff -= days * (1000*60*60*24);
 
-  document.getElementById("contador").textContent =
-    `Estamos juntos há ${dias} dias, ${horas}h ${minutos}m ${segundos}s 💖`;
+  const hours = Math.floor(diff / (1000*60*60));
+  diff -= hours * (1000*60*60);
+
+  const minutes = Math.floor(diff / (1000*60));
+  diff -= minutes * (1000*60);
+
+  const seconds = Math.floor(diff / 1000);
+
+  document.getElementById("timeTogether").innerText =
+    `Estamos juntos há ${days} dias, ${hours}h ${minutes}m ${seconds}s ❤️`;
 }
-setInterval(atualizarContador, 1000);
+setInterval(updateTimeTogether, 1000);
+updateTimeTogether();
 
-// Música autoplay
+// Autoplay com overlay
 const audio = document.getElementById('bgAudio');
-window.addEventListener('load', () => {
-  audio.play(); // força autoplay
-  document.getElementById('btnPlay').style.display = 'none';
-  document.getElementById('btnPause').style.display = 'inline-block';
-});
+const overlay = document.getElementById('overlayPlay');
+const startBtn = document.getElementById('startBtn');
 
-// Botões de controle
-const btnPlay = document.getElementById('btnPlay');
-const btnPause = document.getElementById('btnPause');
-
-btnPlay.addEventListener('click', () => {
-  audio.play();
-  btnPlay.style.display = 'none';
-  btnPause.style.display = 'inline-block';
-});
-btnPause.addEventListener('click', () => {
-  audio.pause();
-  btnPause.style.display = 'none';
-  btnPlay.style.display = 'inline-block';
+startBtn.addEventListener('click', async () => {
+  try {
+    await audio.play();
+    overlay.classList.add('hidden');
+  } catch(e){
+    alert('Não foi possível tocar a música. Verifique o arquivo "musica.mp3".');
+  }
 });
 </script>
 
