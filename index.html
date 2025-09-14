@@ -29,7 +29,7 @@ body{
   position: relative;
 }
 
-/* Overlay inicial */
+/* Overlay inicial do carrossel/música */
 #overlayPlay {
   position: fixed;
   inset:0;
@@ -219,6 +219,37 @@ footer{
   user-select: none;
 }
 
+/* Modal de confirmação personalizada */
+#amorModal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+#amorModal .modal-box {
+  background:rgba(255,255,255,0.05);
+  padding:30px 40px;
+  border-radius:20px;
+  text-align:center;
+  max-width:400px;
+  color:white;
+  font-family: 'Playfair Display', serif;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+#amorModal button {
+  padding:10px 20px;
+  border-radius:12px;
+  border:none;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.2s;
+}
+#amorModal #simBtn { background:var(--accent1); color:white; }
+#amorModal #naoBtn { background:var(--accent2); color:white; }
+
 /* Responsivo */
 @media (max-width:720px){
   .slideshow-container{ height:300px; border-radius:12px }
@@ -229,7 +260,18 @@ footer{
 </head>
 <body>
 
-<!-- Overlay inicial -->
+<!-- Modal inicial personalizada -->
+<div id="amorModal">
+  <div class="modal-box">
+    <p id="modalText">Você realmente me ama e está disposta a viver minhas loucuras pelo resto da vida ao meu lado?</p>
+    <div style="display:flex; justify-content:center; gap:20px; margin-top:20px;">
+      <button id="simBtn">Sim</button>
+      <button id="naoBtn">Não</button>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay inicial do carrossel/música -->
 <div id="overlayPlay">
   <div>Clique para ouvir a música e ver a homenagem 🎵❤️</div>
   <button id="startBtn" class="btn-audio" style="margin-top:20px">▶ Começar</button>
@@ -270,46 +312,31 @@ footer{
   <div class="carta" role="article" aria-label="Carta de homenagem">
     <h2>Minha Homenagem</h2>
     <p>
-      Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, mas estar ao seu lado tem melhorado meus dias a cada dia que passa. Obrigado por ser essa pessoa maravilhosa para mim.
+      Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, mas estar ao seu lado tem melhorado meus dias a cada dia que passa. Obrigado por estar sendo essa pessoa maravilhosa para mim. Esses últimos dias andei conversando demais com Deus, ele tem iluminado minhas ideias. Realmente, isso tudo tem sido você que tem me inspirado e me aproximado dele. Isso é o que te define para mim, sempre me trazendo motivações e forças. Eu estou dando meu máximo para ser o melhor por ti, saiba que jamais te deixarei e estarei lutando ao seu lado, mas peço que você não me esconda nada ❤️
     </p>
     <p>
-      Esses últimos dias tenho conversado bastante com Deus; ele tem iluminado muito minhas ideias. Isso tudo tem sido você: minha inspiração e o que me aproxima Dele. Você sempre me traz motivações e forças. Estou dando o meu máximo para ser o melhor por você. Saiba que jamais te deixarei e estarei lutando ao seu lado — peço apenas que não me esconda nada. ❤️
+      Eu te amo, minha Boneca ❤️‍🔥 Estamos no início de nossa jornada, mas já temos mais de um livro para contar.
     </p>
-    <p class="signature">
-      — Com todo o meu amor, Gabriel
-    </p>
+    <p class="signature">— Com todo o meu amor, Gabriel</p>
   </div>
 </div>
 
-<!-- Carta 2 (texto que você enviou, revisado) -->
+<!-- Carta 2 -->
 <div class="container-text">
   <div class="carta" role="article" aria-label="Segunda carta de homenagem">
-    <h2>Nosso Capítulo</h2>
-
     <p>
-      É minha princesa. Quem diria que um dia passaríamos por tudo o que já passamos em tão pouco tempo — coisas que muitos casais não passam nem em anos; e, mesmo assim, estamos aqui, lutando um pelo outro. Em cinco meses você fez por mim coisas que ninguém jamais fez. Por isso decidi fazer este site para você. Planejo melhorar ainda mais as coisas no futuro e ir atualizando-o — este é apenas o começo. Gostaria de fazer essa homenagem no nosso aniversário de namoro, porém sou muito ansioso para isso.
+      É minha princesa, quem diria que um dia passaríamos por tudo que já passamos em tão pouco tempo, coisas que muitos casais em anos não passam. Mas estamos aqui, lutando um pelo outro. Em cinco meses você fez coisas por mim que nenhuma outra pessoa jamais fez, por isso decidi fazer este site para você, planejando melhorar ainda mais coisas no futuro e poder atualizá-lo. Este é apenas o começo.
     </p>
-
-    <div class="song-highlight">Escolhi a música <strong>“Cama de Casal”</strong> para ser nossa música.</div>
-
-    <p>
-      Escolhi <em>Cama de Casal</em> porque ela nos define: além de ser de um cantor muito importante na minha vida, fala sobre um amor incomum entre duas pessoas — um amor claro e fluido, que nada é capaz de abalar, pois eles estão blindados pelo próprio sentimento. Qualquer lugar serve para amar, desde que você esteja com aquela pessoa. Para mim, essa pessoa é você: parar de te amar não é opção; até mesmo no banco de trás do carro fortalecemos nosso amor.
-    </p>
-
-    <p>
-      A música diz que qualquer lugar onde possamos aumentar nossa conexão será o local; não deixaremos que outras pessoas nos afetem, pois nossa conexão vai além do que alguém poderia tocar. EU TE AMO, MINHA BONECA ❤️.
-    </p>
-
-    <p class="signature">
-      — Para sempre seu, Gabriel
+    <p class="song-highlight">
+      Escolhi a música "Cama de Casal" para ser nossa música, pois define totalmente a gente. Além de ser de um cantor muito importante na minha vida, pelo sentido da música que fala sobre o amor incomum entre duas pessoas, o tanto que o amor entre eles é claro e fluido, onde nada é capaz de atingir ele, pois os dois juntos estão blindados apenas no amor deles. Qualquer lugar é para amar, desde que você esteja com aquela pessoa. E para mim, essa pessoa é você. Aonde parar de te amar não é uma opção, e que até mesmo no banco de trás do carro fortalecemos nosso amor. EU TE AMO MINHA BONECA ❤️
     </p>
   </div>
 </div>
 
-<footer aria-hidden="true">© Homenagem feita por Gabriel</footer>
-
-<!-- Capitolo -->
+<!-- Capitolo 1 -->
 <div id="capitolo">Capitolo 1</div>
+
+<footer aria-hidden="true">© Homenagem feita por Gabriel</footer>
 
 <!-- Música -->
 <audio id="bgAudio" loop>
@@ -361,6 +388,60 @@ startBtn.addEventListener('click', async () => {
     alert('Não foi possível tocar a música. Verifique o arquivo "musica.mp3".');
   }
 });
+
+// Modal personalizada de confirmação de amor
+const amorModal = document.getElementById('amorModal');
+const modalText = document.getElementById('modalText');
+const simBtn = document.getElementById('simBtn');
+const naoBtn = document.getElementById('naoBtn');
+
+simBtn.addEventListener('click', () => {
+  amorModal.style.display = 'none';
+});
+
+naoBtn.addEventListener('click', () => {
+  modalText.innerText = "Tem certeza da sua escolha?";
+  simBtn.innerText = "Não";
+  naoBtn.innerText = "Sim";
+
+  simBtn.onclick = () => {
+    modalText.innerText = "Você realmente me ama e está disposta a viver minhas loucuras pelo resto da vida ao meu lado?";
+    simBtn.innerText = "Sim";
+    naoBtn.innerText = "Não";
+    simBtn.onclick = () => { amorModal.style.display = 'none'; };
+    naoBtn.onclick = () => { segundaPergunta(); };
+  };
+
+  naoBtn.onclick = () => {
+    document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:40vh;'>😢 Então é um adeus...</h1>";
+    setTimeout(() => {
+      window.close();
+      window.location.href = "about:blank";
+    }, 2000);
+  };
+});
+
+function segundaPergunta(){
+  modalText.innerText = "Tem certeza da sua escolha?";
+  simBtn.innerText = "Não";
+  naoBtn.innerText = "Sim";
+
+  simBtn.onclick = () => {
+    modalText.innerText = "Você realmente me ama e está disposta a viver minhas loucuras pelo resto da vida ao meu lado?";
+    simBtn.innerText = "Sim";
+    naoBtn.innerText = "Não";
+    simBtn.onclick = () => { amorModal.style.display = 'none'; };
+    naoBtn.onclick = () => { segundaPergunta(); };
+  };
+
+  naoBtn.onclick = () => {
+    document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:40vh;'>😢 Então é um adeus...</h1>";
+    setTimeout(() => {
+      window.close();
+      window.location.href = "about:blank";
+    }, 2000);
+  };
+}
 </script>
 
 </body>
