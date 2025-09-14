@@ -48,7 +48,7 @@
       position:absolute;
       inset:0;
       opacity:0;
-      transition: opacity 1s ease-in-out;
+      transition: opacity 1s ease-in-out, transform 1s ease-in-out;
       display:flex;
     }
     .slide img{
@@ -176,10 +176,10 @@
     <div class="carta" role="article" aria-label="Carta de homenagem">
       <h2>Minha Homenagem</h2>
       <p>
-        Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, mas estar ao seu lado tem melhorado meus dias a cada dia que passa, obrigado por está sendo essa pessoa maravilhosa para mim, esses últimos dias andei conversando de mais com Deus, ele tem iluminado de mais minhas ideias, realmente isso tudo tem sido você que tem me expirado e me aproximado dele, isso é oque te define para mim, sempre me trazendo motivações e forças, eu estou dando meu máximo para ser o melhor por ti, saiba que jamais te deixarei e estarei lutando ao seu lado, mas peço que você não me esconda nada❤️
+        Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses. Realmente não tem sido fácil, mas estar ao seu lado tem melhorado meus dias a cada dia que passa. Obrigado por estar sendo essa pessoa maravilhosa para mim. Nos últimos dias, andei conversando demais com Deus, e Ele tem iluminado minhas ideias. Isso tudo tem sido você, que me inspira e me aproxima Dele; isso é o que te define para mim, sempre me trazendo motivações e forças. Estou dando meu máximo para ser o melhor por ti. Saiba que jamais te deixarei e estarei lutando ao seu lado, mas peço que você não me esconda nada ❤️
       </p>
       <p>
-        Eu te amo minha Boneca❤️‍🔥 estamos no início de nossa jornada, mas já temos mais de um livro para contar.
+        Eu te amo, minha Boneca ❤️‍🔥. Estamos no início de nossa jornada, mas já temos mais de um livro para contar.
       </p>
       <p class="signature">
         — Com todo o meu amor, Gabriel
@@ -189,7 +189,7 @@
 
   <footer aria-hidden="true">© Homenagem feita por Gabriel</footer>
 
-  <audio id="bgAudio" loop>
+  <audio id="bgAudio" loop autoplay>
     <source src="musica.mp3" type="audio/mpeg">
     Seu navegador não suporta áudio em background.
   </audio>
@@ -203,39 +203,29 @@
       setInterval(() => { idx = (idx + 1) % slides.length; show(idx); }, 3500);
     })();
 
-    // Áudio
+    // Áudio com autoplay seguro
     (function(){
       const audio = document.getElementById('bgAudio');
       const btnPlay = document.getElementById('btnPlay');
       const btnPause = document.getElementById('btnPause');
 
-      const tryAutoPlay = async () => {
-        try {
-          await audio.play();
-          btnPlay.style.display = 'none';
-          btnPause.style.display = 'inline-block';
-          btnPlay.setAttribute('aria-pressed','true');
-        } catch(e){
-          btnPlay.style.display = 'inline-block';
-          btnPause.style.display = 'none';
-        }
+      const updateButtons = (playing) => {
+        btnPlay.style.display = playing ? 'none' : 'inline-block';
+        btnPause.style.display = playing ? 'inline-block' : 'none';
+        btnPlay.setAttribute('aria-pressed', playing ? 'true' : 'false');
       };
-      tryAutoPlay();
+
+      // Tenta autoplay
+      audio.play().then(() => updateButtons(true)).catch(() => updateButtons(false));
 
       btnPlay.addEventListener('click', async () => {
-        try {
-          await audio.play();
-          btnPlay.style.display = 'none';
-          btnPause.style.display = 'inline-block';
-          btnPlay.setAttribute('aria-pressed','true');
-        } catch(e){ alert('Não foi possível tocar a música automaticamente. Verifique o arquivo "musica.mp3".'); }
+        try { await audio.play(); updateButtons(true); }
+        catch(e){ alert('Não foi possível tocar a música. Verifique o arquivo "musica.mp3".'); }
       });
 
       btnPause.addEventListener('click', () => {
         audio.pause();
-        btnPause.style.display = 'none';
-        btnPlay.style.display = 'inline-block';
-        btnPlay.setAttribute('aria-pressed','false');
+        updateButtons(false);
       });
     })();
   </script>
