@@ -29,24 +29,6 @@ body{
   position: relative;
 }
 
-/* Overlay inicial do carrossel/música */
-#overlayPlay {
-  position: fixed;
-  inset:0;
-  background: rgba(0,0,0,0.85);
-  color: #fff;
-  display: flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction: column;
-  font-size:1.3rem;
-  z-index:9999;
-  cursor: pointer;
-  text-align: center;
-  transition: opacity 0.4s ease;
-}
-#overlayPlay.hidden { opacity:0; pointer-events:none; }
-
 /* Carrossel */
 .slideshow-container{
   width:100%;
@@ -121,7 +103,7 @@ body{
 }
 .btn-audio:focus{ outline:2px solid rgba(255,255,255,0.12); }
 
-/* Carta */
+/* Cartas */
 .container-text{
   width:100%;
   max-width:var(--max-width);
@@ -170,6 +152,18 @@ body{
   display:inline-block;
 }
 
+/* Capitolo 1 */
+#capitolo {
+  position: fixed;
+  bottom: 14px;
+  right: 18px;
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
 /* Footer */
 footer{
   margin:28px 0 60px 0;
@@ -207,29 +201,8 @@ footer{
   100% { transform: translateX(-50%) translateY(-100px) rotate(0deg); }
 }
 
-/* Capitolo 1 */
-#capitolo {
-  position: fixed;
-  bottom: 14px;
-  right: 18px;
-  font-size: 1rem;
-  font-style: italic;
-  color: rgba(255,255,255,0.75);
-  letter-spacing: 0.5px;
-  user-select: none;
-}
-
-/* Modal de confirmação personalizada */
-#amorModal {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.9);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
-#amorModal .modal-box {
+/* Modal inicial de confirmação */
+.modal-box {
   background:rgba(255,255,255,0.05);
   padding:30px 40px;
   border-radius:20px;
@@ -239,7 +212,16 @@ footer{
   font-family: 'Playfair Display', serif;
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
-#amorModal button {
+#amorModal, #bemVindoModal {
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.9);
+  z-index:9999;
+}
+#amorModal button, #bemVindoModal button {
   padding:10px 20px;
   border-radius:12px;
   border:none;
@@ -247,8 +229,8 @@ footer{
   cursor:pointer;
   transition:0.2s;
 }
-#amorModal #simBtn { background:var(--accent1); color:white; }
-#amorModal #naoBtn { background:var(--accent2); color:white; }
+#simBtn, #prosseguirBtn { background:var(--accent1); color:white; }
+#naoBtn { background:var(--accent2); color:white; }
 
 /* Responsivo */
 @media (max-width:720px){
@@ -260,7 +242,7 @@ footer{
 </head>
 <body>
 
-<!-- Modal inicial personalizada -->
+<!-- Modal inicial -->
 <div id="amorModal">
   <div class="modal-box">
     <p id="modalText">Você realmente me ama e está disposta a viver minhas loucuras pelo resto da vida ao meu lado?</p>
@@ -271,8 +253,18 @@ footer{
   </div>
 </div>
 
-<!-- Overlay inicial do carrossel/música -->
-<div id="overlayPlay">
+<!-- Modal de boas-vindas -->
+<div id="bemVindoModal" style="display:none;">
+  <div class="modal-box">
+    <p style="font-size:1.2rem; margin-bottom:25px;">
+      Que bom que aceitou viver minhas loucuras ao meu lado! (Espero que goste da homenagem) ❤️
+    </p>
+    <button id="prosseguirBtn">Prosseguir</button>
+  </div>
+</div>
+
+<!-- Overlay do carrossel/música -->
+<div id="overlayPlay" class="hidden">
   <div>Clique para ouvir a música e ver a homenagem 🎵❤️</div>
   <button id="startBtn" class="btn-audio" style="margin-top:20px">▶ Começar</button>
 </div>
@@ -304,145 +296,21 @@ footer{
   </div>
 </div>
 
-<!-- Contador de tempo juntos -->
+<!-- Contador -->
 <div id="timeTogether"></div>
 
 <!-- Carta 1 -->
 <div class="container-text">
-  <div class="carta" role="article" aria-label="Carta de homenagem">
+  <div class="carta">
     <h2>Minha Homenagem</h2>
-    <p>
-      Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, mas estar ao seu lado tem melhorado meus dias a cada dia que passa. Obrigado por estar sendo essa pessoa maravilhosa para mim. Esses últimos dias andei conversando demais com Deus, ele tem iluminado minhas ideias. Realmente, isso tudo tem sido você que tem me inspirado e me aproximado dele. Isso é o que te define para mim, sempre me trazendo motivações e forças. Eu estou dando meu máximo para ser o melhor por ti, saiba que jamais te deixarei e estarei lutando ao seu lado, mas peço que você não me esconda nada ❤️
-    </p>
-    <p>
-      Eu te amo, minha Boneca ❤️‍🔥 Estamos no início de nossa jornada, mas já temos mais de um livro para contar.
-    </p>
+    <p>Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, mas estar ao seu lado tem melhorado meus dias a cada dia que passa. Obrigado por estar sendo essa pessoa maravilhosa para mim. Esses últimos dias andei conversando demais com Deus, ele tem iluminado minhas ideias. Realmente, isso tudo tem sido você que tem me inspirado e me aproximado dele. Isso é o que te define para mim, sempre me trazendo motivações e forças. Eu estou dando meu máximo para ser o melhor por ti, saiba que jamais te deixarei e estarei lutando ao seu lado, mas peço que você não me esconda nada ❤️</p>
+    <p>Eu te amo, minha Boneca ❤️‍🔥 Estamos no início de nossa jornada, mas já temos mais de um livro para contar.</p>
     <p class="signature">— Com todo o meu amor, Gabriel</p>
   </div>
 </div>
 
 <!-- Carta 2 -->
 <div class="container-text">
-  <div class="carta" role="article" aria-label="Segunda carta de homenagem">
-    <p>
-      É minha princesa, quem diria que um dia passaríamos por tudo que já passamos em tão pouco tempo, coisas que muitos casais em anos não passam. Mas estamos aqui, lutando um pelo outro. Em cinco meses você fez coisas por mim que nenhuma outra pessoa jamais fez, por isso decidi fazer este site para você, planejando melhorar ainda mais coisas no futuro e poder atualizá-lo. Este é apenas o começo.
-    </p>
-    <p class="song-highlight">
-      Escolhi a música "Cama de Casal" para ser nossa música, pois define totalmente a gente. Além de ser de um cantor muito importante na minha vida, pelo sentido da música que fala sobre o amor incomum entre duas pessoas, o tanto que o amor entre eles é claro e fluido, onde nada é capaz de atingir ele, pois os dois juntos estão blindados apenas no amor deles. Qualquer lugar é para amar, desde que você esteja com aquela pessoa. E para mim, essa pessoa é você. Aonde parar de te amar não é uma opção, e que até mesmo no banco de trás do carro fortalecemos nosso amor. EU TE AMO MINHA BONECA ❤️
-    </p>
-  </div>
-</div>
-
-<!-- Capitolo 1 -->
-<div id="capitolo">Capitolo 1</div>
-
-<footer aria-hidden="true">© Homenagem feita por Gabriel</footer>
-
-<!-- Música -->
-<audio id="bgAudio" loop>
-  <source src="musica.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-// Carrossel simples
-(function(){
-  const slides = document.querySelectorAll('.slide');
-  let idx = 0;
-  const show = (i) => slides.forEach((s, k) => s.classList.toggle('show', k === i));
-  setInterval(() => { idx = (idx + 1) % slides.length; show(idx); }, 3500);
-})();
-
-// Contador de tempo juntos
-function updateTimeTogether() {
-  const startDate = new Date("2025-04-02T14:02:00");
-  const now = new Date();
-  let diff = now - startDate;
-
-  const days = Math.floor(diff / (1000*60*60*24));
-  diff -= days * (1000*60*60*24);
-
-  const hours = Math.floor(diff / (1000*60*60));
-  diff -= hours * (1000*60*60);
-
-  const minutes = Math.floor(diff / (1000*60));
-  diff -= minutes * (1000*60);
-
-  const seconds = Math.floor(diff / 1000);
-
-  document.getElementById("timeTogether").innerText =
-    `Estamos juntos há ${days} dias, ${hours}h ${minutes}m ${seconds}s ❤️`;
-}
-setInterval(updateTimeTogether, 1000);
-updateTimeTogether();
-
-// Autoplay com overlay
-const audio = document.getElementById('bgAudio');
-const overlay = document.getElementById('overlayPlay');
-const startBtn = document.getElementById('startBtn');
-
-startBtn.addEventListener('click', async () => {
-  try {
-    await audio.play();
-    overlay.classList.add('hidden');
-  } catch(e){
-    alert('Não foi possível tocar a música. Verifique o arquivo "musica.mp3".');
-  }
-});
-
-// Modal personalizada de confirmação de amor
-const amorModal = document.getElementById('amorModal');
-const modalText = document.getElementById('modalText');
-const simBtn = document.getElementById('simBtn');
-const naoBtn = document.getElementById('naoBtn');
-
-simBtn.addEventListener('click', () => {
-  amorModal.style.display = 'none';
-});
-
-naoBtn.addEventListener('click', () => {
-  modalText.innerText = "Tem certeza da sua escolha?";
-  simBtn.innerText = "Não";
-  naoBtn.innerText = "Sim";
-
-  simBtn.onclick = () => {
-    modalText.innerText = "Você realmente me ama e está disposta a viver minhas loucuras pelo resto da vida ao meu lado?";
-    simBtn.innerText = "Sim";
-    naoBtn.innerText = "Não";
-    simBtn.onclick = () => { amorModal.style.display = 'none'; };
-    naoBtn.onclick = () => { segundaPergunta(); };
-  };
-
-  naoBtn.onclick = () => {
-    document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:40vh;'>😢 Então é um adeus...</h1>";
-    setTimeout(() => {
-      window.close();
-      window.location.href = "about:blank";
-    }, 2000);
-  };
-});
-
-function segundaPergunta(){
-  modalText.innerText = "Tem certeza da sua escolha?";
-  simBtn.innerText = "Não";
-  naoBtn.innerText = "Sim";
-
-  simBtn.onclick = () => {
-    modalText.innerText = "Você realmente me ama e está disposta a viver minhas loucuras pelo resto da vida ao meu lado?";
-    simBtn.innerText = "Sim";
-    naoBtn.innerText = "Não";
-    simBtn.onclick = () => { amorModal.style.display = 'none'; };
-    naoBtn.onclick = () => { segundaPergunta(); };
-  };
-
-  naoBtn.onclick = () => {
-    document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:40vh;'>😢 Então é um adeus...</h1>";
-    setTimeout(() => {
-      window.close();
-      window.location.href = "about:blank";
-    }, 2000);
-  };
-}
-</script>
-
-</body>
-</html>
+  <div class="carta">
+    <p>É minha princesa, quem diria que um dia passaríamos por tudo que já passamos em tão pouco tempo, coisas que muitos casais em anos não passam. Mas estamos aqui, lutando um pelo outro. Em cinco meses você fez coisas por mim que nenhuma outra pessoa jamais fez, por isso decidi fazer este site para você, planejando melhorar ainda mais coisas no futuro e poder atualizá-lo. Este é apenas o começo.</p>
+    <p class="song-highlight">Escolhi a música "Cama de Casal" para ser nossa música, pois define totalmente a gente. Além de
