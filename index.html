@@ -356,65 +356,39 @@ function updateTimeTogether() {
 setInterval(updateTimeTogether, 1000);
 updateTimeTogether();
 
-// Autoplay música
-const audio = document.getElementById('bgAudio');
-const overlay = document.getElementById('overlayPlay');
-const startBtn = document.getElementById('startBtn');
-startBtn.addEventListener('click', async () => {
-  try {
-    await audio.play();
-    overlay.classList.add('hidden');
-  } catch(e){
-    alert('Não foi possível tocar a música. Verifique o arquivo "musica.mp3".');
-  }
-});
-
-// Modais
+// Modal interativo
 const amorModal = document.getElementById('amorModal');
 const bemVindoModal = document.getElementById('bemVindoModal');
 const simBtn = document.getElementById('simBtn');
 const naoBtn = document.getElementById('naoBtn');
 const prosseguirBtn = document.getElementById('prosseguirBtn');
+const audio = document.getElementById('bgAudio');
 
-// Segunda pergunta
-let segundaPergunta = document.createElement('div');
-segundaPergunta.style.display = 'none';
-segundaPergunta.style.marginTop = '20px';
-segundaPergunta.innerHTML = `
-  <p>Tem certeza da sua escolha?</p>
-  <div style="display:flex; justify-content:center; gap:20px; margin-top:10px;">
-    <button id="sim2Btn" style="background:var(--accent1); color:white; padding:8px 16px; border-radius:10px;">Sim</button>
-    <button id="nao2Btn" style="background:var(--accent2); color:white; padding:8px 16px; border-radius:10px;">Não</button>
-  </div>
-`;
-amorModal.querySelector('.modal-box').appendChild(segundaPergunta);
+naoBtn.addEventListener('click', () => {
+  if(confirm('Tem certeza da escolha?')) {
+    document.body.innerHTML = "<h2 style='color:white; text-align:center; margin-top:40vh;'>Que pena... 💔</h2>";
+  }
+});
 
-// Eventos
 simBtn.addEventListener('click', () => {
   amorModal.style.display = 'none';
   bemVindoModal.style.display = 'flex';
 });
 
-naoBtn.addEventListener('click', () => {
-  segundaPergunta.style.display = 'block';
-  simBtn.style.display = 'none';
-  naoBtn.style.display = 'none';
-});
-
-document.getElementById('sim2Btn').addEventListener('click', () => {
-  document.body.innerHTML = "<h2 style='color:white; text-align:center; margin-top:40vh;'>Que pena... 💔</h2>";
-});
-
-document.getElementById('nao2Btn').addEventListener('click', () => {
-  segundaPergunta.style.display = 'none';
-  simBtn.style.display = 'inline-block';
-  naoBtn.style.display = 'inline-block';
-});
-
-prosseguirBtn.addEventListener('click', () => {
+prosseguirBtn.addEventListener('click', async () => {
   bemVindoModal.style.display = 'none';
-  overlay.classList.remove('hidden');
+  overlayPlay.classList.remove('hidden');
+  try { await audio.play(); } catch(e){ alert('Não foi possível tocar a música. Verifique o arquivo "musica.mp3".'); }
 });
+
+// Overlay de início (caso queira)
+const overlayPlayBtn = document.getElementById('startBtn');
+if(overlayPlayBtn){
+  overlayPlayBtn.addEventListener('click', async () => {
+    try { await audio.play(); overlayPlay.classList.add('hidden'); } 
+    catch(e){ alert('Não foi possível tocar a música.'); }
+  });
+}
 </script>
 </body>
 </html>
