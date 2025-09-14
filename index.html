@@ -123,6 +123,15 @@ header nav a:hover {
   color: #ccc;
   font-style: italic;
 }
+
+/* Contador */
+#contador {
+  margin: 20px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffe082;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
 </style>
 </head>
 <body>
@@ -141,6 +150,9 @@ header nav a:hover {
   <img src="foto3.jpg" alt="Foto 3">
 </div>
 
+<!-- Contador -->
+<div id="contador"></div>
+
 <!-- Carta -->
 <div id="nossa-historia" class="card">
   <div class="card-title">Nossa História</div>
@@ -158,8 +170,14 @@ header nav a:hover {
   <div class="capitulo">Capítulo 1</div>
 </div>
 
+<!-- Música de fundo -->
+<audio autoplay loop>
+  <source src="musica.mp3" type="audio/mpeg">
+  Seu navegador não suporta áudio.
+</audio>
+
 <script>
-// Script do carrossel
+// Carrossel de imagens
 let current = 0;
 const images = document.querySelectorAll('.carousel img');
 setInterval(() => {
@@ -167,6 +185,22 @@ setInterval(() => {
   current = (current + 1) % images.length;
   images[current].classList.add('active');
 }, 4000);
+
+// Contador de tempo (data de início da história)
+const startDate = new Date("2024-12-01T00:00:00"); // <-- coloque aqui a data do início
+function atualizarContador() {
+  const now = new Date();
+  const diff = now - startDate;
+
+  const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutos = Math.floor((diff / (1000 * 60)) % 60);
+  const segundos = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("contador").textContent = 
+    `Estamos juntos há ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos 💖`;
+}
+setInterval(atualizarContador, 1000);
 </script>
 
 </body>
