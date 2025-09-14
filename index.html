@@ -192,7 +192,7 @@ header nav a:hover {
   <div class="card-subtitle">Um capítulo do nosso amor</div>
   <div class="card-text">
     Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, 
-    mas estar ao seu lado tem melhorado meus dias a cada dia que passa. Obrigado por ser essa pessoa maravilhosa 
+    mas estar ao seu lado tem melhorado nossos dias a cada dia que passa. Obrigado por ser essa pessoa maravilhosa 
     para mim. Esses últimos dias andei conversando demais com Deus, e Ele tem iluminado minhas ideias. 
     Você é quem me inspira e me aproxima d’Ele.  
     <br><br>
@@ -234,11 +234,24 @@ function atualizarContador() {
 }
 setInterval(atualizarContador, 1000);
 
-// Controle de música
+// Controle de música com autoplay
 const audio = document.getElementById('bgAudio');
 const btnPlay = document.getElementById('btnPlay');
 const btnPause = document.getElementById('btnPause');
 
+// Tenta tocar automaticamente
+window.addEventListener('load', async () => {
+  try {
+    await audio.play();
+    btnPlay.style.display = 'none';
+    btnPause.style.display = 'inline-block';
+  } catch(e) {
+    btnPlay.style.display = 'inline-block';
+    btnPause.style.display = 'none';
+  }
+});
+
+// Botões de controle
 btnPlay.addEventListener('click', async () => {
   try {
     await audio.play();
