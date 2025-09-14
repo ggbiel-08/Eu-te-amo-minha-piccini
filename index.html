@@ -19,13 +19,43 @@ body{
   min-height:100vh;
 }
 
+/* Banner estilo Netflix */
+.slideshow-container{
+  width:100%;
+  max-width:1200px;
+  height:400px;
+  margin:0 auto;
+  position:relative;
+  overflow:hidden;
+}
+.slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition: opacity 1s ease-in-out;
+}
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.slide.show{ opacity:1; z-index:1 }
+.slideshow-overlay{
+  position:absolute;
+  bottom:0; left:0; right:0;
+  padding:20px;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.6) 100%);
+  font-size:1.4rem;
+  font-weight:bold;
+}
+
 /* Carta estilo Netflix */
 .netflix-card {
   background: linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.92));
   border-radius: 12px;
   padding: 30px;
   max-width: 800px;
-  margin: 60px 20px;
+  margin: 40px 20px;
   position: relative;
   box-shadow: 0 20px 50px rgba(0,0,0,0.7);
   text-align: left;
@@ -64,10 +94,56 @@ body{
   font-size: 1.1rem;
   color: #e50914;
 }
+
+/* Hello Kitty flutuante */
+.hellokitty-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index:0;
+}
+.kitty {
+  position: absolute;
+  width: 60px;
+  left: 50%;
+  top: -100px;
+  transform: translateX(-50%);
+  animation: float 12s linear infinite;
+  opacity: 0.8;
+}
+@keyframes float {
+  0% { transform: translateX(-50%) translateY(-100px) rotate(0deg); }
+  50% { transform: translateX(-50%) translateY(50vh) rotate(10deg); }
+  100% { transform: translateX(-50%) translateY(-100px) rotate(0deg); }
+}
+
+/* Timer */
+#timeTogether {
+  margin-top:20px;
+  font-size:1.2rem;
+  color:#fff;
+  text-align:center;
+}
 </style>
 </head>
 <body>
 
+<!-- Hello Kitty -->
+<div class="hellokitty-container">
+  <img src="hellokitty.png" class="kitty">
+</div>
+
+<!-- Slideshow estilo Netflix -->
+<div class="slideshow-container">
+  <div class="slide show"><img src="foto1.jpg" alt="Foto 1"></div>
+  <div class="slide"><img src="foto2.jpg" alt="Foto 2"></div>
+  <div class="slide"><img src="foto3.jpg" alt="Foto 3"></div>
+  <div class="slide"><img src="foto4.jpg" alt="Foto 4"></div>
+  <div class="slide"><img src="foto5.jpg" alt="Foto 5"></div>
+  <div class="slideshow-overlay">Nosso Filme ❤️</div>
+</div>
+
+<!-- Carta Netflix -->
 <div class="netflix-card">
   <div class="netflix-title">Nosso Filme</div>
   <div class="netflix-subtitle">Uma história de amor original</div>
@@ -82,6 +158,65 @@ body{
   </div>
   <div class="signature">— Com todo o meu amor, Gabriel</div>
 </div>
+
+<!-- Timer -->
+<div id="timeTogether"></div>
+
+<!-- Música com clique inicial -->
+<div id="overlayPlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.85); display:flex; justify-content:center; align-items:center; flex-direction:column; z-index:9999; color:#fff; cursor:pointer;">
+  <div>Clique para começar a homenagem 🎵❤️</div>
+  <button id="startBtn" style="margin-top:20px; padding:10px 20px; font-size:1.2rem; cursor:pointer; border-radius:12px; border:none; background: #e50914; color:#fff;">▶ Começar</button>
+</div>
+
+<audio id="bgAudio" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Slideshow automático
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  let idx = 0;
+  const show = (i) => slides.forEach((s, k) => s.classList.toggle('show', k === i));
+  setInterval(() => { idx = (idx + 1) % slides.length; show(idx); }, 4000);
+})();
+
+// Música com clique inicial
+const audio = document.getElementById('bgAudio');
+const overlay = document.getElementById('overlayPlay');
+const startBtn = document.getElementById('startBtn');
+startBtn.addEventListener('click', async () => {
+  try {
+    await audio.play();
+    overlay.style.display = 'none';
+  } catch(e){
+    alert('Não foi possível tocar a música. Verifique o arquivo "musica.mp3".');
+  }
+});
+
+// Timer juntos
+function updateTimeTogether() {
+  const startDate = new Date("2025-04-02T14:02:00");
+  const now = new Date();
+  let diff = now - startDate;
+
+  const days = Math.floor(diff / (1000*60*60*24));
+  diff -= days * (1000*60*60*24);
+
+  const hours = Math.floor(diff / (1000*60*60));
+  diff -= hours * (1000*60*60);
+
+  const minutes = Math.floor(diff / (1000*60));
+  diff -= minutes * (1000*60);
+
+  const seconds = Math.floor(diff / 1000);
+
+  document.getElementById("timeTogether").innerText =
+    `Estamos juntos há ${days} dias, ${hours}h ${minutes}m ${seconds}s ❤️`;
+}
+setInterval(updateTimeTogether, 1000);
+updateTimeTogether();
+</script>
 
 </body>
 </html>
