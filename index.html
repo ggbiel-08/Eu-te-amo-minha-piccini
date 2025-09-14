@@ -276,4 +276,122 @@ footer{
 <!-- Carrossel -->
 <div class="slideshow-container" aria-label="Galeria de fotos">
   <div class="slide show"><img src="foto1.jpg" alt="Nós dois — foto 1"></div>
-  <div class="slide"><img src="foto2.jpg" alt="
+  <div class="slide"><img src="foto2.jpg" alt="Nós dois — foto 2"></div>
+  <div class="slide"><img src="foto3.jpg" alt="Nós dois — foto 3"></div>
+  <div class="slide"><img src="foto4.jpg" alt="Nós dois — foto 4"></div>
+  <div class="slide"><img src="foto5.jpg" alt="Nós dois — foto 5"></div>
+  <div class="slide"><img src="foto6.jpg" alt="Nós dois — foto 6"></div>
+  <div class="slide"><img src="foto7.jpg" alt="Nós dois — foto 7"></div>
+  <div class="slide"><img src="foto8.jpg" alt="Nós dois — foto 8"></div>
+  <div class="slide"><img src="foto9.jpg" alt="Nós dois — foto 9"></div>
+  <div class="slide"><img src="foto10.jpg" alt="Nós dois — foto 10"></div>
+
+  <div class="slideshow-overlay" aria-hidden="false">
+    <div class="title-small">Para o Amor da Minha Vida</div>
+    <div class="audio-control">
+      <button id="btnPlay" class="btn-audio" aria-pressed="false" style="display:none">▶ Tocar música</button>
+      <button id="btnPause" class="btn-audio" style="display:none">⏸ Pausar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Contador -->
+<div id="timeTogether"></div>
+
+<!-- Carta 1 -->
+<div class="container-text">
+  <div class="carta">
+    <h2>Minha Homenagem</h2>
+    <p>Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, mas estar ao seu lado tem melhorado meus dias a cada dia que passa. Obrigado por estar sendo essa pessoa maravilhosa para mim. Esses últimos dias andei conversando demais com Deus, ele tem iluminado minhas ideias. Realmente, isso tudo tem sido você que tem me inspirado e me aproximado dele. Isso é o que te define para mim, sempre me trazendo motivações e forças. Eu estou dando meu máximo para ser o melhor por ti, saiba que jamais te deixarei e estarei lutando ao seu lado, mas peço que você não me esconda nada ❤️</p>
+    <p>Eu te amo, minha Boneca ❤️‍🔥 Estamos no início de nossa jornada, mas já temos mais de um livro para contar.</p>
+    <p class="signature">— Com todo o meu amor, Gabriel</p>
+  </div>
+</div>
+
+<!-- Carta 2 -->
+<div class="container-text">
+  <div class="carta">
+    <p>É minha princesa, quem diria que um dia passaríamos por tudo que já passamos em tão pouco tempo, coisas que muitos casais em anos não passam. Mas estamos aqui, lutando um pelo outro. Em cinco meses você fez coisas por mim que nenhuma outra pessoa jamais fez, por isso decidi fazer este site para você, planejando melhorar ainda mais coisas no futuro e poder atualizá-lo. Este é apenas o começo.</p>
+    <p class="song-highlight">Escolhi a música "Cama de Casal" para ser nossa música, pois define totalmente a gente, além de ser de um cantor muito importante na minha vida. O sentido da música fala sobre o amor profundo entre duas pessoas, o quanto o amor entre elas é claro e fluido, onde nada é capaz de atingir esse sentimento. Para mim, essa pessoa é você. EU TE AMO MINHA BONECA ❤️</p>
+  </div>
+</div>
+
+<footer aria-hidden="true">© Homenagem feita por Gabriel</footer>
+<div id="capitolo">Capitolo 1</div>
+
+<!-- Música -->
+<audio id="bgAudio" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Carrossel simples
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  let idx = 0;
+  const show = (i) => slides.forEach((s, k) => s.classList.toggle('show', k === i));
+  setInterval(() => { idx = (idx + 1) % slides.length; show(idx); }, 3500);
+})();
+
+// Contador de tempo juntos
+function updateTimeTogether() {
+  const startDate = new Date("2025-04-02T14:02:00");
+  const now = new Date();
+  let diff = now - startDate;
+
+  const days = Math.floor(diff / (1000*60*60*24));
+  diff -= days * (1000*60*60*24);
+
+  const hours = Math.floor(diff / (1000*60*60));
+  diff -= hours * (1000*60*60);
+
+  const minutes = Math.floor(diff / (1000*60));
+  diff -= minutes * (1000*60);
+
+  const seconds = Math.floor(diff / 1000);
+
+  document.getElementById("timeTogether").innerText =
+    `Estamos juntos há ${days} dias, ${hours}h ${minutes}m ${seconds}s ❤️`;
+}
+setInterval(updateTimeTogether, 1000);
+updateTimeTogether();
+
+// Autoplay música
+const audio = document.getElementById('bgAudio');
+const overlay = document.getElementById('overlayPlay');
+const startBtn = document.getElementById('startBtn');
+startBtn.addEventListener('click', async () => {
+  try {
+    await audio.play();
+    overlay.classList.add('hidden');
+  } catch(e){
+    alert('Não foi possível tocar a música. Verifique o arquivo "musica.mp3".');
+  }
+});
+
+// Modais de confirmação
+const amorModal = document.getElementById('amorModal');
+const bemVindoModal = document.getElementById('bemVindoModal');
+const simBtn = document.getElementById('simBtn');
+const naoBtn = document.getElementById('naoBtn');
+const prosseguirBtn = document.getElementById('prosseguirBtn');
+
+naoBtn.addEventListener('click', () => {
+  if(confirm("Tem certeza da sua escolha?")) {
+    window.close();
+  }
+});
+
+simBtn.addEventListener('click', () => {
+  amorModal.style.display = 'none';
+  bemVindoModal.style.display = 'flex';
+});
+
+prosseguirBtn.addEventListener('click', () => {
+  bemVindoModal.style.display = 'none';
+  overlay.classList.remove('hidden');
+});
+</script>
+
+</body>
+</html>
