@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Para o Amor da Minha Vida — Homenagem</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent1: #8b2fc6;
+      --accent2: #e55aa0;
+      --glass: rgba(255,255,255,0.08);
+      --glass-strong: rgba(255,255,255,0.14);
+      --text: #fff;
+      --max-width: 980px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: 'Playfair Display', Georgia, "Times New Roman", serif;
+      color:var(--text);
+      background: linear-gradient(135deg, #2b0b3a 0%, #4a115f 40%, #b23e7a 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      min-height:100vh;
+    }
+
+    /* CARROSSEL */
+    .slideshow-container{
+      width:100%;
+      max-width:1200px;
+      height:420px;
+      margin-top:32px;
+      border-radius:18px;
+      overflow:hidden;
+      position:relative;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .slide{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transition: opacity 1s ease-in-out;
+      display:flex;
+    }
+    .slide img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      user-select:none;
+      -webkit-user-drag:none;
+      transition: transform 1s ease;
+    }
+    .slide.show img{ transform: scale(1.02); }
+    .slide.show{ opacity:1; z-index:1 }
+
+    .slideshow-overlay{
+      position:absolute;
+      left:0;right:0;bottom:0;
+      padding:18px 26px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.28) 60%, rgba(0,0,0,0.48) 100%);
+    }
+    .title-small{
+      font-size:18px;
+      font-weight:600;
+      letter-spacing:0.6px;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    }
+
+    /* CONTROLES DO ÁUDIO */
+    .audio-control{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .btn-audio{
+      background: var(--glass-strong);
+      border: 1px solid rgba(255,255,255,0.08);
+      color:var(--text);
+      padding:8px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      transition: all 0.2s ease;
+    }
+    .btn-audio:hover{
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .btn-audio:focus{ outline:2px solid rgba(255,255,255,0.12) }
+
+    /* TEXTO/CARTA */
+    .container-text{
+      width:100%;
+      max-width:var(--max-width);
+      margin: 34px 20px;
+    }
+    .carta{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:14px;
+      padding:28px 30px;
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.05), 0 10px 30px rgba(0,0,0,0.45);
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--text);
+      line-height:1.7;
+      font-size:1.18rem;
+    }
+    .carta h2{
+      margin:0 0 10px 0;
+      font-size:1.6rem;
+      letter-spacing:0.2px;
+    }
+    .carta p{
+      margin:12px 0;
+      text-align:justify;
+    }
+    .carta p.signature{
+      margin-top:18px;
+      text-align:right;
+      font-weight:700;
+    }
+
+    footer{
+      margin:28px 0 60px 0;
+      color: rgba(255,255,255,0.9);
+      font-size:0.98rem;
+    }
+
+    /* responsivo */
+    @media (max-width:720px){
+      .slideshow-container{ height:300px; border-radius:12px }
+      .carta{ padding:20px; font-size:1rem }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slideshow-container" aria-label="Galeria de fotos">
+    <div class="slide show"><img src="foto1.jpg" alt="Nós dois — foto 1"></div>
+    <div class="slide"><img src="foto2.jpg" alt="Nós dois — foto 2"></div>
+    <div class="slide"><img src="foto3.jpg" alt="Nós dois — foto 3"></div>
+    <div class="slide"><img src="foto4.jpg" alt="Nós dois — foto 4"></div>
+    <div class="slide"><img src="foto5.jpg" alt="Nós dois — foto 5"></div>
+    <div class="slide"><img src="foto6.jpg" alt="Nós dois — foto 6"></div>
+    <div class="slide"><img src="foto7.jpg" alt="Nós dois — foto 7"></div>
+    <div class="slide"><img src="foto8.jpg" alt="Nós dois — foto 8"></div>
+    <div class="slide"><img src="foto9.jpg" alt="Nós dois — foto 9"></div>
+    <div class="slide"><img src="foto10.jpg" alt="Nós dois — foto 10"></div>
+
+    <div class="slideshow-overlay" aria-hidden="false">
+      <div class="title-small">Para o Amor da Minha Vida</div>
+      <div class="audio-control">
+        <button id="btnPlay" class="btn-audio" aria-pressed="false">▶ Tocar música</button>
+        <button id="btnPause" class="btn-audio" style="display:none">⏸ Pausar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-text">
+    <div class="carta" role="article" aria-label="Carta de homenagem">
+      <h2>Minha Homenagem</h2>
+      <p>
+        Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, mas estar ao seu lado tem melhorado meus dias a cada dia que passa, obrigado por está sendo essa pessoa maravilhosa para mim, esses últimos dias andei conversando de mais com Deus, ele tem iluminado de mais minhas ideias, realmente isso tudo tem sido você que tem me expirado e me aproximado dele, isso é oque te define para mim, sempre me trazendo motivações e forças, eu estou dando meu máximo para ser o melhor por ti, saiba que jamais te deixarei e estarei lutando ao seu lado, mas peço que você não me esconda nada❤️
+      </p>
+      <p>
+        Eu te amo minha Boneca❤️‍🔥 estamos no início de nossa jornada, mas já temos mais de um livro para contar.
+      </p>
+      <p class="signature">
+        — Com todo o meu amor, Gabriel
+      </p>
+    </div>
+  </div>
+
+  <footer aria-hidden="true">© Homenagem feita por Gabriel</footer>
+
+  <audio id="bgAudio" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio em background.
+  </audio>
+
+  <script>
+    // Carrossel simples
+    (function(){
+      const slides = document.querySelectorAll('.slide');
+      let idx = 0;
+      const show = (i) => slides.forEach((s, k) => s.classList.toggle('show', k === i));
+      setInterval(() => { idx = (idx + 1) % slides.length; show(idx); }, 3500);
+    })();
+
+    // Áudio
+    (function(){
+      const audio = document.getElementById('bgAudio');
+      const btnPlay = document.getElementById('btnPlay');
+      const btnPause = document.getElementById('btnPause');
+
+      const tryAutoPlay = async () => {
+        try {
+          await audio.play();
+          btnPlay.style.display = 'none';
+          btnPause.style.display = 'inline-block';
+          btnPlay.setAttribute('aria-pressed','true');
+        } catch(e){
+          btnPlay.style.display = 'inline-block';
+          btnPause.style.display = 'none';
+        }
+      };
+      tryAutoPlay();
+
+      btnPlay.addEventListener('click', async () => {
+        try {
+          await audio.play();
+          btnPlay.style.display = 'none';
+          btnPause.style.display = 'inline-block';
+          btnPlay.setAttribute('aria-pressed','true');
+        } catch(e){ alert('Não foi possível tocar a música automaticamente. Verifique o arquivo "musica.mp3".'); }
+      });
+
+      btnPause.addEventListener('click', () => {
+        audio.pause();
+        btnPause.style.display = 'none';
+        btnPlay.style.display = 'inline-block';
+        btnPlay.setAttribute('aria-pressed','false');
+      });
+    })();
+  </script>
+
+</body>
+</html>
