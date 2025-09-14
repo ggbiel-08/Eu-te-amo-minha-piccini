@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Nossa História — Gabriel & Amor</title>
+<title>Nosso Filme — Gabriel & Amor</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-body{
-  margin:0;
-  font-family: 'Raleway', Arial, sans-serif;
-  background: linear-gradient(135deg, #6a3093, #a044ff);
+body {
+  margin: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  background: #000;
   color: #fff;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  min-height:100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 
 /* Menu topo */
@@ -26,15 +26,14 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(0,0,0,0.3);
+  background: #111;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  backdrop-filter: blur(6px);
 }
 header h1 {
-  color: #fff;
+  color: #e50914;
   font-family: 'Playfair Display', serif;
   margin: 0;
 }
@@ -45,173 +44,138 @@ header nav a {
   font-weight: bold;
 }
 header nav a:hover {
-  color: #ffe082;
+  color: #e50914;
 }
 
 /* Carrossel */
-.carousel-container {
-  margin-top: 70px;
-  width: 90%;
-  max-width: 1000px;
-  height: 420px;
+.carousel {
+  margin-top: 80px;
+  width: 100%;
+  max-width: 900px;
+  height: 400px;
   position: relative;
   overflow: hidden;
-  border-radius: 14px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
 }
-.carousel-slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: all 1s ease;
-}
-.carousel-slide img {
+.carousel img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 14px;
+  display: none;
 }
-.carousel-slide.active {
-  opacity: 1;
-  z-index: 1;
+.carousel img.active {
+  display: block;
+  animation: fade 1.5s;
+}
+@keyframes fade {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
 }
 
-/* Carta romântica */
-.card {
-  background: rgba(255,255,255,0.08);
-  border-radius: 14px;
+/* Seção história */
+.section {
+  background: rgba(20,20,20,0.95);
+  border-radius: 12px;
   padding: 30px;
   max-width: 800px;
-  margin: 40px 20px 60px;
-  position: relative;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+  margin: 40px 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
   text-align: left;
-  backdrop-filter: blur(10px);
 }
-.card-title {
+.section h2 {
   font-size: 2rem;
-  font-weight: 700;
+  color: #e50914;
   font-family: 'Playfair Display', serif;
-  color: #ffe082;
   margin-bottom: 15px;
 }
-.card-subtitle {
-  font-size: 1rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #ddd;
-  margin-bottom: 20px;
-}
-.card-text {
-  font-size: 1.1rem;
+.section p {
+  font-size: 1.15rem;
   line-height: 1.7;
-  color: #f8f8f8;
+  color: #f1f1f1;
 }
 .signature {
   text-align: right;
   margin-top: 20px;
   font-weight: bold;
   font-size: 1.1rem;
-  color: #ffe082;
-}
-.capitulo {
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #ccc;
-  font-style: italic;
+  color: #e50914;
 }
 
 /* Contador */
 #contador {
-  margin: 20px 0;
   font-size: 1.2rem;
+  margin-top: 20px;
   font-weight: bold;
-  color: #ffe082;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  color: #ffcc00;
+  text-align: center;
 }
 
-/* Botão play/pause */
-.audio-control {
-  margin: 10px 0;
-  display: flex;
-  gap: 10px;
+/* Botões de música */
+.music-controls {
+  margin: 20px;
 }
-.btn-audio {
-  background: rgba(255,255,255,0.2);
-  color: #fff;
+.music-controls button {
+  background: #e50914;
   border: none;
-  padding: 8px 15px;
-  border-radius: 10px;
-  cursor: pointer;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 8px;
+  color: #fff;
   font-weight: bold;
+  cursor: pointer;
 }
-.btn-audio:hover {
-  background: rgba(255,255,255,0.35);
+.music-controls button:hover {
+  background: #b20710;
 }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Nossa História</h1>
+  <h1>Nosso Filme</h1>
   <nav>
-    <a href="#nossa-historia">Carta</a>
+    <a href="#nossa-historia">Nossa História</a>
   </nav>
 </header>
 
 <!-- Carrossel -->
-<div class="carousel-container">
-  <div class="carousel-slide active"><img src="foto1.jpg" alt="Foto 1"></div>
-  <div class="carousel-slide"><img src="foto2.jpg" alt="Foto 2"></div>
-  <div class="carousel-slide"><img src="foto3.jpg" alt="Foto 3"></div>
-  <div class="carousel-slide"><img src="foto4.jpg" alt="Foto 4"></div>
-  <div class="carousel-slide"><img src="foto5.jpg" alt="Foto 5"></div>
-  <div class="carousel-slide"><img src="foto6.jpg" alt="Foto 6"></div>
-  <div class="carousel-slide"><img src="foto7.jpg" alt="Foto 7"></div>
-  <div class="carousel-slide"><img src="foto8.jpg" alt="Foto 8"></div>
-  <div class="carousel-slide"><img src="foto9.jpg" alt="Foto 9"></div>
-  <div class="carousel-slide"><img src="foto10.jpg" alt="Foto 10"></div>
+<div class="carousel">
+  <img src="foto1.jpg" class="active" alt="Foto 1">
+  <img src="foto2.jpg" alt="Foto 2">
+  <img src="foto3.jpg" alt="Foto 3">
+  <img src="foto4.jpg" alt="Foto 4">
 </div>
 
 <!-- Contador -->
 <div id="contador"></div>
 
-<!-- Controle de música -->
-<div class="audio-control">
-  <button id="btnPlay" class="btn-audio">▶ Tocar Música</button>
-  <button id="btnPause" class="btn-audio" style="display:none">⏸ Pausar Música</button>
+<!-- Música -->
+<div class="music-controls">
+  <audio id="bgAudio" src="musica.mp3" loop></audio>
+  <button id="btnPlay">▶ Tocar Música</button>
+  <button id="btnPause" style="display:none;">⏸ Pausar Música</button>
 </div>
 
-<!-- Carta -->
-<div id="nossa-historia" class="card">
-  <div class="card-title">Nossa História</div>
-  <div class="card-subtitle">Um capítulo do nosso amor</div>
-  <div class="card-text">
+<!-- História -->
+<div id="nossa-historia" class="section">
+  <h2>Nossa História</h2>
+  <p>
     Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, 
-    mas estar ao seu lado tem melhorado nossos dias a cada dia que passa. Obrigado por ser essa pessoa maravilhosa 
+    mas estar ao seu lado tem melhorado meus dias a cada dia que passa. Obrigado por ser essa pessoa maravilhosa 
     para mim. Esses últimos dias andei conversando demais com Deus, e Ele tem iluminado minhas ideias. 
     Você é quem me inspira e me aproxima d’Ele.  
     <br><br>
     Eu estou dando meu máximo para ser o melhor por ti. Saiba que jamais te deixarei e estarei lutando ao seu lado. 
     Eu te amo, minha boneca ❤️‍🔥. Estamos no início de nossa jornada, mas já temos mais de um livro para contar.
-  </div>
+  </p>
   <div class="signature">— Com todo o meu amor, Gabriel</div>
-  <div class="capitulo">Capítulo 1</div>
 </div>
-
-<!-- Música de fundo -->
-<audio id="bgAudio" loop>
-  <source src="musica.mp3" type="audio/mpeg">
-</audio>
 
 <script>
 // Carrossel automático
 let current = 0;
-const slides = document.querySelectorAll('.carousel-slide');
+const slides = document.querySelectorAll('.carousel img');
 setInterval(() => {
   slides[current].classList.remove('active');
   current = (current + 1) % slides.length;
@@ -234,32 +198,23 @@ function atualizarContador() {
 }
 setInterval(atualizarContador, 1000);
 
-// Controle de música com autoplay
+// Música autoplay
 const audio = document.getElementById('bgAudio');
-const btnPlay = document.getElementById('btnPlay');
-const btnPause = document.getElementById('btnPause');
-
-// Tenta tocar automaticamente
-window.addEventListener('load', async () => {
-  try {
-    await audio.play();
-    btnPlay.style.display = 'none';
-    btnPause.style.display = 'inline-block';
-  } catch(e) {
-    btnPlay.style.display = 'inline-block';
-    btnPause.style.display = 'none';
-  }
+window.addEventListener('load', () => {
+  audio.play(); // força autoplay
+  document.getElementById('btnPlay').style.display = 'none';
+  document.getElementById('btnPause').style.display = 'inline-block';
 });
 
 // Botões de controle
-btnPlay.addEventListener('click', async () => {
-  try {
-    await audio.play();
-    btnPlay.style.display = 'none';
-    btnPause.style.display = 'inline-block';
-  } catch(e){ alert('Erro ao tocar a música.'); }
-});
+const btnPlay = document.getElementById('btnPlay');
+const btnPause = document.getElementById('btnPause');
 
+btnPlay.addEventListener('click', () => {
+  audio.play();
+  btnPlay.style.display = 'none';
+  btnPause.style.display = 'inline-block';
+});
 btnPause.addEventListener('click', () => {
   audio.pause();
   btnPause.style.display = 'none';
