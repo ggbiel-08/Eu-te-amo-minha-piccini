@@ -22,14 +22,33 @@
       font-family: 'Playfair Display', Georgia, "Times New Roman", serif;
       color:var(--text);
       background: linear-gradient(135deg, #2b0b3a 0%, #4a115f 40%, #b23e7a 100%);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      text-rendering:optimizeLegibility;
       display:flex;
       flex-direction:column;
       align-items:center;
       min-height:100vh;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
+      position: relative;
     }
+
+    /* Overlay de Autoplay */
+    #overlayPlay {
+      position: fixed;
+      inset:0;
+      background: rgba(0,0,0,0.85);
+      color: #fff;
+      display: flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction: column;
+      font-size:1.3rem;
+      z-index:9999;
+      cursor: pointer;
+      text-align: center;
+      transition: opacity 0.4s ease;
+    }
+    #overlayPlay.hidden { opacity:0; pointer-events:none; }
 
     /* CARROSSEL */
     .slideshow-container{
@@ -142,7 +161,6 @@
       font-size:0.98rem;
     }
 
-    /* responsivo */
     @media (max-width:720px){
       .slideshow-container{ height:300px; border-radius:12px }
       .carta{ padding:20px; font-size:1rem }
@@ -151,6 +169,13 @@
 </head>
 <body>
 
+  <!-- Overlay de autoplay -->
+  <div id="overlayPlay">
+    <div>Clique para ouvir a música e ver a homenagem 🎵❤️</div>
+    <button id="startBtn" class="btn-audio" style="margin-top:20px">▶ Começar</button>
+  </div>
+
+  <!-- Carrossel -->
   <div class="slideshow-container" aria-label="Galeria de fotos">
     <div class="slide show"><img src="foto1.jpg" alt="Nós dois — foto 1"></div>
     <div class="slide"><img src="foto2.jpg" alt="Nós dois — foto 2"></div>
@@ -166,12 +191,13 @@
     <div class="slideshow-overlay" aria-hidden="false">
       <div class="title-small">Para o Amor da Minha Vida</div>
       <div class="audio-control">
-        <button id="btnPlay" class="btn-audio" aria-pressed="false">▶ Tocar música</button>
+        <button id="btnPlay" class="btn-audio" aria-pressed="false" style="display:none">▶ Tocar música</button>
         <button id="btnPause" class="btn-audio" style="display:none">⏸ Pausar</button>
       </div>
     </div>
   </div>
 
+  <!-- Carta -->
   <div class="container-text">
     <div class="carta" role="article" aria-label="Carta de homenagem">
       <h2>Minha Homenagem</h2>
@@ -189,13 +215,13 @@
 
   <footer aria-hidden="true">© Homenagem feita por Gabriel</footer>
 
-  <audio id="bgAudio" loop autoplay>
+  <audio id="bgAudio" loop>
     <source src="musica.mp3" type="audio/mpeg">
     Seu navegador não suporta áudio em background.
   </audio>
 
   <script>
-    // Carrossel simples
+    // Carrossel
     (function(){
       const slides = document.querySelectorAll('.slide');
       let idx = 0;
@@ -203,9 +229,11 @@
       setInterval(() => { idx = (idx + 1) % slides.length; show(idx); }, 3500);
     })();
 
-    // Áudio com autoplay seguro
+    // Áudio com overlay de start
     (function(){
       const audio = document.getElementById('bgAudio');
+      const overlay = document.getElementById('overlayPlay');
+      const startBtn = document.getElementById('startBtn');
       const btnPlay = document.getElementById('btnPlay');
       const btnPause = document.getElementById('btnPause');
 
@@ -215,12 +243,19 @@
         btnPlay.setAttribute('aria-pressed', playing ? 'true' : 'false');
       };
 
-      // Tenta autoplay
-      audio.play().then(() => updateButtons(true)).catch(() => updateButtons(false));
+      startBtn.addEventListener('click', async () => {
+        try {
+          await audio.play();
+          overlay.classList.add('hidden');
+          updateButtons(true);
+        } catch(e){
+          alert('Não foi possível tocar a música. Verifique o arquivo "musica.mp3".');
+        }
+      });
 
       btnPlay.addEventListener('click', async () => {
-        try { await audio.play(); updateButtons(true); }
-        catch(e){ alert('Não foi possível tocar a música. Verifique o arquivo "musica.mp3".'); }
+        try { await audio.play(); updateButtons(true); } 
+        catch(e){ alert('Não foi possível tocar a música.'); }
       });
 
       btnPause.addEventListener('click', () => {
