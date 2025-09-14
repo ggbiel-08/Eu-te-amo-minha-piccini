@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Nosso Filme — Gabriel & Amor</title>
+<title>Nossa História — Gabriel & Amor</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
-  font-family: 'Roboto', Arial, sans-serif;
-  background: #000;
+  font-family: 'Raleway', Arial, sans-serif;
+  background: linear-gradient(135deg, #6a3093, #a044ff);
   color: #fff;
   display:flex;
   flex-direction:column;
@@ -26,14 +26,15 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #111;
+  background: rgba(0,0,0,0.3);
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
+  backdrop-filter: blur(6px);
 }
 header h1 {
-  color: #e50914;
+  color: #fff;
   font-family: 'Playfair Display', serif;
   margin: 0;
 }
@@ -44,53 +45,72 @@ header nav a {
   font-weight: bold;
 }
 header nav a:hover {
-  color: #e50914;
+  color: #ffe082;
 }
 
-/* Carta estilo Netflix */
-.netflix-card {
-  background: linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.92));
+/* Carrossel */
+.carousel {
+  margin-top: 70px; /* abaixo do menu fixo */
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  position: relative;
   border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+.carousel img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  opacity: 0;
+  transition: all 1s ease;
+}
+.carousel img.active {
+  left: 0;
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Carta estilo romântico */
+.card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 14px;
   padding: 30px;
   max-width: 800px;
-  margin: 120px 20px 60px; /* ajustado por causa do header fixo */
+  margin: 40px 20px 60px;
   position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
   text-align: left;
-  overflow: hidden;
+  backdrop-filter: blur(10px);
 }
-.netflix-card::before {
-  content: "";
-  background: url('hellokitty.png') no-repeat center/120px;
-  opacity: 0.08;
-  position: absolute;
-  inset:0;
-}
-.netflix-title {
-  font-size: 2.2rem;
+.card-title {
+  font-size: 2rem;
   font-weight: 700;
   font-family: 'Playfair Display', serif;
-  color: #e50914;
+  color: #ffe082;
   margin-bottom: 15px;
 }
-.netflix-subtitle {
-  font-size: 1.1rem;
+.card-subtitle {
+  font-size: 1rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #aaa;
-  margin-bottom: 25px;
+  color: #ddd;
+  margin-bottom: 20px;
 }
-.netflix-text {
-  font-size: 1.15rem;
+.card-text {
+  font-size: 1.1rem;
   line-height: 1.7;
-  color: #f1f1f1;
+  color: #f8f8f8;
 }
 .signature {
   text-align: right;
   margin-top: 20px;
   font-weight: bold;
   font-size: 1.1rem;
-  color: #e50914;
+  color: #ffe082;
 }
 
 /* Capítulo 1 */
@@ -100,7 +120,7 @@ header nav a:hover {
   right: 20px;
   font-size: 0.9rem;
   font-weight: bold;
-  color: #888;
+  color: #ccc;
   font-style: italic;
 }
 </style>
@@ -108,16 +128,24 @@ header nav a:hover {
 <body>
 
 <header>
-  <h1>Nosso Filme</h1>
+  <h1>Nossa História</h1>
   <nav>
-    <a href="#nossa-historia">Nossa História</a>
+    <a href="#nossa-historia">Carta</a>
   </nav>
 </header>
 
-<div id="nossa-historia" class="netflix-card">
-  <div class="netflix-title">Nossa História</div>
-  <div class="netflix-subtitle">Uma história de amor original</div>
-  <div class="netflix-text">
+<!-- Carrossel de fotos -->
+<div class="carousel">
+  <img src="foto1.jpg" class="active" alt="Foto 1">
+  <img src="foto2.jpg" alt="Foto 2">
+  <img src="foto3.jpg" alt="Foto 3">
+</div>
+
+<!-- Carta -->
+<div id="nossa-historia" class="card">
+  <div class="card-title">Nossa História</div>
+  <div class="card-subtitle">Um capítulo do nosso amor</div>
+  <div class="card-text">
     Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, 
     mas estar ao seu lado tem melhorado meus dias a cada dia que passa. Obrigado por ser essa pessoa maravilhosa 
     para mim. Esses últimos dias andei conversando demais com Deus, e Ele tem iluminado minhas ideias. 
@@ -129,6 +157,17 @@ header nav a:hover {
   <div class="signature">— Com todo o meu amor, Gabriel</div>
   <div class="capitulo">Capítulo 1</div>
 </div>
+
+<script>
+// Script do carrossel
+let current = 0;
+const images = document.querySelectorAll('.carousel img');
+setInterval(() => {
+  images[current].classList.remove('active');
+  current = (current + 1) % images.length;
+  images[current].classList.add('active');
+}, 4000);
+</script>
 
 </body>
 </html>
