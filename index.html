@@ -1,222 +1,146 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Nosso Filme — Gabriel & Amor</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Filme - [Seu Nome & Nome Dela]</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        .header {
+            width: 100%;
+            height: 500px;
+            background-image: url('placeholder-header.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
 
-<style>
-body{
-  margin:0;
-  font-family: 'Roboto', Arial, sans-serif;
-  background: #000;
-  color: #fff;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  min-height:100vh;
-}
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%);
+        }
 
-/* Banner estilo Netflix */
-.slideshow-container{
-  width:100%;
-  max-width:1200px;
-  height:400px;
-  margin:0 auto;
-  position:relative;
-  overflow:hidden;
-}
-.slide{
-  position:absolute;
-  inset:0;
-  opacity:0;
-  transition: opacity 1s ease-in-out;
-}
-.slide img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-.slide.show{ opacity:1; z-index:1 }
-.slideshow-overlay{
-  position:absolute;
-  bottom:0; left:0; right:0;
-  padding:20px;
-  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.6) 100%);
-  font-size:1.4rem;
-  font-weight:bold;
-}
+        .header-content {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            max-width: 600px;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #e50914;
+            margin-bottom: 10px;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            margin: 0;
+        }
 
-/* Carta estilo Netflix */
-.netflix-card {
-  background: linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.92));
-  border-radius: 12px;
-  padding: 30px;
-  max-width: 800px;
-  margin: 40px 20px;
-  position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-  text-align: left;
-  overflow: hidden;
-}
-.netflix-card::before {
-  content: "";
-  background: url('hellokitty.png') no-repeat center/120px;
-  opacity: 0.08;
-  position: absolute;
-  inset:0;
-}
-.netflix-title {
-  font-size: 2.2rem;
-  font-weight: 700;
-  font-family: 'Playfair Display', serif;
-  color: #e50914; /* vermelho Netflix */
-  margin-bottom: 15px;
-}
-.netflix-subtitle {
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #aaa;
-  margin-bottom: 25px;
-}
-.netflix-text {
-  font-size: 1.15rem;
-  line-height: 1.7;
-  color: #f1f1f1;
-}
-.signature {
-  text-align: right;
-  margin-top: 20px;
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: #e50914;
-}
+        .description {
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
 
-/* Hello Kitty flutuante */
-.hellokitty-container {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index:0;
-}
-.kitty {
-  position: absolute;
-  width: 60px;
-  left: 50%;
-  top: -100px;
-  transform: translateX(-50%);
-  animation: float 12s linear infinite;
-  opacity: 0.8;
-}
-@keyframes float {
-  0% { transform: translateX(-50%) translateY(-100px) rotate(0deg); }
-  50% { transform: translateX(-50%) translateY(50vh) rotate(10deg); }
-  100% { transform: translateX(-50%) translateY(-100px) rotate(0deg); }
-}
+        .container {
+            padding: 20px 50px;
+        }
 
-/* Timer */
-#timeTogether {
-  margin-top:20px;
-  font-size:1.2rem;
-  color:#fff;
-  text-align:center;
-}
-</style>
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .photo-row {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding-bottom: 20px;
+        }
+
+        .photo-item {
+            flex: 0 0 200px;
+            height: 300px;
+            background-color: #333;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .card {
+            background-color: #111;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            margin-top: 0;
+        }
+
+        .card-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<!-- Hello Kitty -->
-<div class="hellokitty-container">
-  <img src="hellokitty.png" class="kitty">
-</div>
+    <div class="header">
+        <div class="header-overlay"></div>
+        <div class="header-content">
+            <div class="logo">NOSSO FILME</div>
+            <h1 class="title">Título do Seu Filme</h1>
+            <p class="description">Sua descrição personalizada aqui.</p>
+        </div>
+    </div>
 
-<!-- Slideshow estilo Netflix -->
-<div class="slideshow-container">
-  <div class="slide show"><img src="foto1.jpg" alt="Foto 1"></div>
-  <div class="slide"><img src="foto2.jpg" alt="Foto 2"></div>
-  <div class="slide"><img src="foto3.jpg" alt="Foto 3"></div>
-  <div class="slide"><img src="foto4.jpg" alt="Foto 4"></div>
-  <div class="slide"><img src="foto5.jpg" alt="Foto 5"></div>
-  <div class="slideshow-overlay">Nosso Filme ❤️</div>
-</div>
+    <div class="container">
+        <h2 class="section-title">Populares no Nosso Canal</h2>
+        <div class="photo-row">
+            <div class="photo-item"><img src="foto1.jpg" alt="Foto 1"></div>
+            <div class="photo-item"><img src="foto2.jpg" alt="Foto 2"></div>
+            <div class="photo-item"><img src="foto3.jpg" alt="Foto 3"></div>
+            <div class="photo-item"><img src="foto4.jpg" alt="Foto 4"></div>
+            <div class="photo-item"><img src="foto5.jpg" alt="Foto 5"></div>
+        </div>
 
-<!-- Carta Netflix -->
-<div class="netflix-card">
-  <div class="netflix-title">Nosso Filme</div>
-  <div class="netflix-subtitle">Uma história de amor original</div>
-  <div class="netflix-text">
-    Minha vida, eu sei que tenho sido um pouco difícil de lidar nos últimos meses, realmente não tem sido fácil, 
-    mas estar ao seu lado tem melhorado meus dias a cada dia que passa. Obrigado por ser essa pessoa maravilhosa 
-    para mim. Esses últimos dias andei conversando demais com Deus, e Ele tem iluminado minhas ideias. 
-    Você é quem me inspira e me aproxima d’Ele.  
-    <br><br>
-    Eu estou dando meu máximo para ser o melhor por ti. Saiba que jamais te deixarei e estarei lutando ao seu lado. 
-    Eu te amo, minha boneca ❤️‍🔥. Estamos no início de nossa jornada, mas já temos mais de um livro para contar.
-  </div>
-  <div class="signature">— Com todo o meu amor, Gabriel</div>
-</div>
-
-<!-- Timer -->
-<div id="timeTogether"></div>
-
-<!-- Música com clique inicial -->
-<div id="overlayPlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.85); display:flex; justify-content:center; align-items:center; flex-direction:column; z-index:9999; color:#fff; cursor:pointer;">
-  <div>Clique para começar a homenagem 🎵❤️</div>
-  <button id="startBtn" style="margin-top:20px; padding:10px 20px; font-size:1.2rem; cursor:pointer; border-radius:12px; border:none; background: #e50914; color:#fff;">▶ Começar</button>
-</div>
-
-<audio id="bgAudio" loop>
-  <source src="musica.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-// Slideshow automático
-(function(){
-  const slides = document.querySelectorAll('.slide');
-  let idx = 0;
-  const show = (i) => slides.forEach((s, k) => s.classList.toggle('show', k === i));
-  setInterval(() => { idx = (idx + 1) % slides.length; show(idx); }, 4000);
-})();
-
-// Música com clique inicial
-const audio = document.getElementById('bgAudio');
-const overlay = document.getElementById('overlayPlay');
-const startBtn = document.getElementById('startBtn');
-startBtn.addEventListener('click', async () => {
-  try {
-    await audio.play();
-    overlay.style.display = 'none';
-  } catch(e){
-    alert('Não foi possível tocar a música. Verifique o arquivo "musica.mp3".');
-  }
-});
-
-// Timer juntos
-function updateTimeTogether() {
-  const startDate = new Date("2025-04-02T14:02:00");
-  const now = new Date();
-  let diff = now - startDate;
-
-  const days = Math.floor(diff / (1000*60*60*24));
-  diff -= days * (1000*60*60*24);
-
-  const hours = Math.floor(diff / (1000*60*60));
-  diff -= hours * (1000*60*60);
-
-  const minutes = Math.floor(diff / (1000*60));
-  diff -= minutes * (1000*60);
-
-  const seconds = Math.floor(diff / 1000);
-
-  document.getElementById("timeTogether").innerText =
-    `Estamos juntos há ${days} dias, ${hours}h ${minutes}m ${seconds}s ❤️`;
-}
-setInterval(updateTimeTogether, 1000);
-updateTimeTogether();
-</script>
+        <div class="card">
+            <h2 class="card-title">Sua Mensagem</h2>
+            <p class="card-text">
+                Sua mensagem de homenagem vai aqui. Escreva sobre o que sente,
+                as memórias de vocês, e por que essa pessoa é especial.
+            </p>
+            <p class="signature">— Com amor, [Seu Nome]</p>
+        </div>
+    </div>
 
 </body>
 </html>
