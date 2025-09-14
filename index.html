@@ -49,32 +49,35 @@ header nav a:hover {
 }
 
 /* Carrossel */
-.carousel {
-  margin-top: 70px; /* abaixo do menu fixo */
-  width: 100%;
-  max-height: 400px;
-  overflow: hidden;
+.carousel-container {
+  margin-top: 70px;
+  width: 90%;
+  max-width: 1000px;
+  height: 420px;
   position: relative;
-  border-radius: 12px;
+  overflow: hidden;
+  border-radius: 14px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.5);
 }
-.carousel img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
+.carousel-slide {
   position: absolute;
-  top: 0;
-  left: 100%;
+  width: 100%;
+  height: 100%;
   opacity: 0;
   transition: all 1s ease;
 }
-.carousel img.active {
-  left: 0;
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.carousel-slide.active {
   opacity: 1;
   z-index: 1;
 }
 
-/* Carta estilo romântico */
+/* Carta romântica */
 .card {
   background: rgba(255,255,255,0.08);
   border-radius: 14px;
@@ -112,8 +115,6 @@ header nav a:hover {
   font-size: 1.1rem;
   color: #ffe082;
 }
-
-/* Capítulo 1 */
 .capitulo {
   position: absolute;
   bottom: 10px;
@@ -132,6 +133,25 @@ header nav a:hover {
   color: #ffe082;
   text-shadow: 0 2px 6px rgba(0,0,0,0.6);
 }
+
+/* Botão play/pause */
+.audio-control {
+  margin: 10px 0;
+  display: flex;
+  gap: 10px;
+}
+.btn-audio {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn-audio:hover {
+  background: rgba(255,255,255,0.35);
+}
 </style>
 </head>
 <body>
@@ -143,15 +163,28 @@ header nav a:hover {
   </nav>
 </header>
 
-<!-- Carrossel de fotos -->
-<div class="carousel">
-  <img src="foto1.jpg" class="active" alt="Foto 1">
-  <img src="foto2.jpg" alt="Foto 2">
-  <img src="foto3.jpg" alt="Foto 3">
+<!-- Carrossel -->
+<div class="carousel-container">
+  <div class="carousel-slide active"><img src="foto1.jpg" alt="Foto 1"></div>
+  <div class="carousel-slide"><img src="foto2.jpg" alt="Foto 2"></div>
+  <div class="carousel-slide"><img src="foto3.jpg" alt="Foto 3"></div>
+  <div class="carousel-slide"><img src="foto4.jpg" alt="Foto 4"></div>
+  <div class="carousel-slide"><img src="foto5.jpg" alt="Foto 5"></div>
+  <div class="carousel-slide"><img src="foto6.jpg" alt="Foto 6"></div>
+  <div class="carousel-slide"><img src="foto7.jpg" alt="Foto 7"></div>
+  <div class="carousel-slide"><img src="foto8.jpg" alt="Foto 8"></div>
+  <div class="carousel-slide"><img src="foto9.jpg" alt="Foto 9"></div>
+  <div class="carousel-slide"><img src="foto10.jpg" alt="Foto 10"></div>
 </div>
 
 <!-- Contador -->
 <div id="contador"></div>
+
+<!-- Controle de música -->
+<div class="audio-control">
+  <button id="btnPlay" class="btn-audio">▶ Tocar Música</button>
+  <button id="btnPause" class="btn-audio" style="display:none">⏸ Pausar Música</button>
+</div>
 
 <!-- Carta -->
 <div id="nossa-historia" class="card">
@@ -171,23 +204,22 @@ header nav a:hover {
 </div>
 
 <!-- Música de fundo -->
-<audio autoplay loop>
+<audio id="bgAudio" loop>
   <source src="musica.mp3" type="audio/mpeg">
-  Seu navegador não suporta áudio.
 </audio>
 
 <script>
-// Carrossel de imagens
+// Carrossel automático
 let current = 0;
-const images = document.querySelectorAll('.carousel img');
+const slides = document.querySelectorAll('.carousel-slide');
 setInterval(() => {
-  images[current].classList.remove('active');
-  current = (current + 1) % images.length;
-  images[current].classList.add('active');
+  slides[current].classList.remove('active');
+  current = (current + 1) % slides.length;
+  slides[current].classList.add('active');
 }, 4000);
 
-// Contador de tempo (data de início da história)
-const startDate = new Date("2024-12-01T00:00:00"); // <-- coloque aqui a data do início
+// Contador de tempo juntos
+const startDate = new Date("2025-04-02T14:02:00");
 function atualizarContador() {
   const now = new Date();
   const diff = now - startDate;
@@ -197,10 +229,29 @@ function atualizarContador() {
   const minutos = Math.floor((diff / (1000 * 60)) % 60);
   const segundos = Math.floor((diff / 1000) % 60);
 
-  document.getElementById("contador").textContent = 
-    `Estamos juntos há ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos 💖`;
+  document.getElementById("contador").textContent =
+    `Estamos juntos há ${dias} dias, ${horas}h ${minutos}m ${segundos}s 💖`;
 }
 setInterval(atualizarContador, 1000);
+
+// Controle de música
+const audio = document.getElementById('bgAudio');
+const btnPlay = document.getElementById('btnPlay');
+const btnPause = document.getElementById('btnPause');
+
+btnPlay.addEventListener('click', async () => {
+  try {
+    await audio.play();
+    btnPlay.style.display = 'none';
+    btnPause.style.display = 'inline-block';
+  } catch(e){ alert('Erro ao tocar a música.'); }
+});
+
+btnPause.addEventListener('click', () => {
+  audio.pause();
+  btnPause.style.display = 'none';
+  btnPlay.style.display = 'inline-block';
+});
 </script>
 
 </body>
